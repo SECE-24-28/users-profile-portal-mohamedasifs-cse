@@ -1,0 +1,28 @@
+// Prisma schema — defines database models and PostgreSQL connection
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Admin user who logs in
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String // hashed with bcrypt
+}
+
+// Student record
+model Student {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  department   String
+  year         Int
+  profileImage String?  // URL or file path to uploaded image
+  createdAt    DateTime @default(now())
+}
